@@ -33,7 +33,7 @@ class Post extends Model
      *
      * @var string
      */
-    protected $table = 'blog_navbars';
+    protected $table = 'blog_posts';
     
     /**
      * Indicates if the model should be timestamped.

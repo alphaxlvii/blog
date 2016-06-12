@@ -19,7 +19,7 @@ class HelperManagement
     public static function _view($view = null, $data = [], $mergeData = [])
     {
         list($moduleName,$viewBlock,$viewName) = explode('.', $view);
-        if(php_sapi_name()=='fpm-fcgi'){
+        if(php_sapi_name()=='fpm-fcgi'){// linux下
             return view()->file(base_path('modules/'.$moduleName.'/view/'.$viewBlock.'/'.$viewName.'.blade.php'),$data,$mergeData);
         }
         return view()->file(base_path('modules\\'.$moduleName.'\\view\\'.$viewBlock.'\\'.$viewName.'.blade.php'),$data,$mergeData);

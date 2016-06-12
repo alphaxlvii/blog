@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Libs\Management\HelperManagement;
 use Modules\Blog\Model\Navbar;
 use Libs\Utils\ArrayUtils;
+use Modules\Blog\Model\Post;
 
 class IndexController extends Controller
 {
@@ -26,21 +27,23 @@ class IndexController extends Controller
     public function Index($nav = null)
     {
         //if($nav == 'post'){  return abort(404); }
-        $navbar = ArrayUtils::obj2Arr(Navbar::with('posts')->where(['navbar'=>'/'.$nav])->get()->first());
+        $posts = ArrayUtils::obj2Arr(Post::all());
         //request()->session()->put('navbarActive', '$nav');
-        return HelperManagement::_view('blog.blog.welcome', compact($navbar));
+        return HelperManagement::_view('blog.blog.welcome', compact('posts'));
     }
     
     public function Navbar($nav = null)
     {
         //if($nav == 'post'){  return abort(404); }
         //$navbar = ArrayUtils::obj2Arr(Navbar::with('posts')->where(['navbar'=>'/'.$nav])->get()->first());
-        $navbar = Navbar::where(['navbar'=>'/'.$nav])->get()->first();
-        $posts = $navbar->posts->toArray();
+        $navbar = Navbar::with(['posts'=>function ($query){
+            $query->orderBy('created_at', 'desc');
+        }])->where(['navbar'=>'/'.$nav])->get()->first()->toArray();
+        $posts = $navbar['posts'];
         //request()->session()->put('navbarActive', '$nav');
         //print_r($navbar);
-        print_r($posts);
-        return HelperManagement::_view('blog.blog.welcome', compact($navbar));
+        print_r($navbar);
+        return HelperManagement::_view('blog.blog.welcome', compact('posts'));
     }
     
     public function showPost($slug)

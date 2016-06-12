@@ -14,7 +14,7 @@ class Navbar extends Model
      */
     public function posts()
     {
-        return $this->belongsToMany('Modules\Blog\Model\navbar', 'blog_post_navbar_pivot');
+        return $this->belongsToMany('Modules\Blog\Model\post', 'blog_post_navbar_pivot','navbar_id','post_id');
     }
     
     /**
