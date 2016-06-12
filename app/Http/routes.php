@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -25,16 +21,15 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-Route::group(['middleware' => ['web']], function () {
+//Route::group(['middleware' => ['web']], function () {
     //
-});
+//});
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-    foreach(glob( base_path('/modules/*/Routes/*.php') ) as $route){
+    foreach(glob( base_path('/modules/*/Route/*.php') ) as $route){
         require $route;
     }
 });
