@@ -5,27 +5,30 @@ use Libs\Management\HelperManagement;
 use Modules\Blog\Model\Navbar;
 use Libs\Utils\ArrayUtils;
 use Modules\Blog\Model\Post;
+use DB;
 
 class IndexController extends Controller
 { 
     public function __construct(){
-        
-        
+
     }
     
     public function Index($nav = null)
     {
-        $posts = ArrayUtils::obj2Arr(Post::all());
-        return HelperManagement::_view('blog.blog.welcome', compact('posts'));
+        $posts = Post::orderBy('created_at', 'desc')->paginate(1);
+        return HelperManagement::_view('blog.blog.lists', compact('posts'));
     }
     
     public function Navbar($nav = null)
     {
-        $navbar = Navbar::with(['posts'=>function ($query){
-            $query->orderBy('created_at', 'desc');
-        }])->where(['navbar'=>'/'.$nav])->get()->first()->toArray();
-        $posts = $navbar['posts'];
-        return HelperManagement::_view('blog.blog.welcome', compact('posts'));
+        $navbar = DB::select('SELECT id FROM blog_navbars WHERE navbar = :nav ',[ 'nav'=>$nav ]);
+        $navbar_post_ids = DB::select('SELECT post_id FROM blog_post_navbar_pivot WHERE navbar_id = :navbar_id',['navbar_id'=>$navbar[0]->id]);       
+        $posts_ids = [];
+        foreach($navbar_post_ids as $v){
+            $posts_ids[] = $v->post_id;
+        }
+        $posts = Post::whereIn('id',$posts_ids)->orderBy('created_at', 'desc')->paginate(1);
+        return HelperManagement::_view('blog.blog.lists', compact('posts'));
     }
     
     public function showPost($slug)

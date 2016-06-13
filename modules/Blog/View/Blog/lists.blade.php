@@ -12,6 +12,7 @@
 @endforeach
 <nav>
 	<ul class="pager">
+		{!! $posts->links() !!}
 		<li><a href="#">Older</a></li>
 		<li class="disabled"><a href="#">Newer</a></li>
 	</ul>

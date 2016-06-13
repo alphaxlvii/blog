@@ -18,6 +18,14 @@ class Navbar extends Model
     }
     
     /**
+     * 获取指定navbar的所有id
+     */
+    public function postsId()
+    {
+        return $this->belongsToMany('Modules\Blog\Model\post', 'blog_post_navbar_pivot','navbar_id','post_id')->withPivot('post_id');
+    }
+    
+    /**
      * 应该被调整为日期的属性
      *
      * @var array

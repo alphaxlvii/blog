@@ -15,6 +15,14 @@ class Post extends Model
     use SoftDeletes;
     
     /**
+     * 获取指定navbar的所有文章
+     */
+    public function navs()
+    {
+        return $this->belongsToMany('Modules\Blog\Model\Navbar', 'blog_post_navbar_pivot','post_id','navbar_id');
+    }
+    
+    /**
      * 应该被调整为日期的属性
      *
      * @var array
