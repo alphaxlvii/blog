@@ -30,11 +30,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-    Route::group(['middleware' => 'web'], function () {
+
         foreach(glob( base_path('/modules/*/Route/*.php') ) as $route){
             require $route;
         }
-    });
+
     Route::get('admin/login', '\\Modules\\Admin\\Controller\\AuthController@getLogin');
     Route::post('admin/login', '\\Modules\\Admin\\Controller\\AuthController@postLogin');
     Route::get('admin/logout', '\\Modules\\Admin\\Controller\\AuthController@getLogout');
