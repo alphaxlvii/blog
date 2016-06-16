@@ -29,17 +29,8 @@
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
-
-        foreach(glob( base_path('/modules/*/Route/*.php') ) as $route){
-            require $route;
-        }
-
-    Route::get('admin/login', '\\Modules\\Admin\\Controller\\AuthController@getLogin');
-    Route::post('admin/login', '\\Modules\\Admin\\Controller\\AuthController@postLogin');
-    Route::get('admin/logout', '\\Modules\\Admin\\Controller\\AuthController@getLogout');
-    // 注册路由...
-    Route::get('admin/register', 'Auth\AuthController@getRegister');
-    Route::post('admin/register', 'Auth\AuthController@postRegister');
+    foreach(glob( base_path('/modules/*/Route/*.php') ) as $route){
+        require $route;
+    }
 });
 
