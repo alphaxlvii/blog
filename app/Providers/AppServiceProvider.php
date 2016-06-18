@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Blog\Controller\NavbarController;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,10 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         //视图间共享数据
-        view()->share(['sSite'=>config('site'), 'sNavbars'=>NavbarController::Navbar()]);
+        //dd(auth()->user());
+        if(Auth::check()){
+            view()->share(['sSite'=>config('site'), 'sNavbars'=>NavbarController::Navbar()]);
+        }
     }
 
     /**
