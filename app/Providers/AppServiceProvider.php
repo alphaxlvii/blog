@@ -36,15 +36,7 @@ class AppServiceProvider extends ServiceProvider
          *
          * @var [type]
          */
-        $sNavbars = [];
-        //print_r(11);
-        if(Auth::check()){
-            $sNavbars = NavbarController::Navbar();
-        }
-        print_r(Auth::user());
-        if(Auth::guard()->check()){
-            $sNavbars = NavbarController::Navbar();
-        }
+        $sNavbars = NavbarController::Navbar();
         
         view()->share(['sSite'=>$sSite, 'sNavbars'=>$sNavbars]);
     }
