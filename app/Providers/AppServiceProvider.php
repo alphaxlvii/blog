@@ -18,9 +18,35 @@ class AppServiceProvider extends ServiceProvider
         //
         //视图间共享数据
         //dd(auth()->user());
+        //if(Auth::check()){
+            
+        //}
+        
+        /**
+         * $sSite
+         * this var contains the information typed into site.
+         *
+         * @var [type]
+         */
+        $sSite = config('site');
+        
+        /**
+         * $sNavbars
+         * this var contains the information typed into navbar.
+         *
+         * @var [type]
+         */
+        $sNavbars = [];
+        //print_r(11);
         if(Auth::check()){
-            view()->share(['sSite'=>config('site'), 'sNavbars'=>NavbarController::Navbar()]);
+            $sNavbars = NavbarController::Navbar();
         }
+        print_r(Auth::user());
+        if(Auth::guard()->check()){
+            $sNavbars = NavbarController::Navbar();
+        }
+        
+        view()->share(['sSite'=>$sSite, 'sNavbars'=>$sNavbars]);
     }
 
     /**
