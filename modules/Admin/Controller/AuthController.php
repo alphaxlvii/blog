@@ -12,9 +12,12 @@ use Libs\Management\HelperManagement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Modules\Admin\Traits\RedirectsUsers;
 
 class AuthController extends Controller
 {
+    use RedirectsUsers;
+    
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -122,9 +125,11 @@ class AuthController extends Controller
 
         $credentials = $request->only($this->loginUsername(), 'password');
 
+        $this->setRedirectPath($request);
+        
         if (Auth::guard($this->guard)->attempt($credentials)) {
             // 认证通过...
-            return redirect()->intended($this->redirectTo);
+            return redirect()->intended($this->redirectPath());
         }
 
         return $this->sendFailedLoginResponse($request);
@@ -186,5 +191,14 @@ class AuthController extends Controller
     public function loginUsername()
     {
         return property_exists($this, 'username') ? $this->username : 'email';
+    }
+    
+    /**
+     * 设置成功登录后跳转的url
+     * @param Request $request
+     */
+    public function setRedirectPath(Request $request)
+    {
+        $this->redirectPath = $request->fullUrl();
     }
 }
