@@ -9,7 +9,7 @@
 				<a class="nav-link {{ request()->session()->get('cNavbar')=='about' ? 'active' : '' }}" href="/about">关于</a>
 			</div>        
 		     <!-- #section:basics/navbar.dropdown -->
-			<div class="pull-right" style="width: 20%">
+			<div class="pull-right" role="navigation" style="width: 20%">
 				<ul class="nav navbar-nav navbar-right">
 	               <!-- #section:basics/navbar.user_menu -->
 					@if (Auth::guest())
