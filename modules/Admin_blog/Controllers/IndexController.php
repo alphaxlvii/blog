@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Admin_blog\Controller;
+namespace Modules\Admin_blog\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 

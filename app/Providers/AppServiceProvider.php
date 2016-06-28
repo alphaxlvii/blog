@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Blog\Controller\NavbarController;
+use Modules\Blog\Controllers\NavbarController;
 use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider

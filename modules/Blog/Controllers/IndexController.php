@@ -1,10 +1,10 @@
 <?php
-namespace Modules\Blog\Controller;
+namespace Modules\Blog\Controllers;
 use App\Http\Controllers\Controller;
 use Libs\Management\HelperManagement;
-use Modules\Blog\Model\Navbar;
+use Modules\Blog\Models\Navbar;
 use Libs\Utils\ArrayUtils;
-use Modules\Blog\Model\Post;
+use Modules\Blog\Models\Post;
 use DB;
 
 class IndexController extends Controller

@@ -1,9 +1,9 @@
 <?php
-namespace Modules\Blog\Controller;
+namespace Modules\Blog\Controllers;
 
 use App\Http\Controllers\Controller;
 use Libs\Utils\ArrayUtils;
-use Modules\Blog\Model\Navbar;
+use Modules\Blog\Models\Navbar;
 use App\Http\Requests\Request;
 
 class NavbarController extends Controller

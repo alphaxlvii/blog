@@ -1,25 +1,28 @@
 <?php
 
-namespace Modules\Blog\Model;
+namespace Modules\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * 文章
- * @author computer
- *
- */
-class Post extends Model
+class Navbar extends Model
 {
     use SoftDeletes;
     
     /**
      * 获取指定navbar的所有文章
      */
-    public function navs()
+    public function posts()
     {
-        return $this->belongsToMany('Modules\Blog\Model\Navbar', 'blog_post_navbar_pivot','post_id','navbar_id');
+        return $this->belongsToMany('Modules\Blog\Model\post', 'blog_post_navbar_pivot','navbar_id','post_id');
+    }
+    
+    /**
+     * 获取指定navbar的所有id
+     */
+    public function postsId()
+    {
+        return $this->belongsToMany('Modules\Blog\Model\post', 'blog_post_navbar_pivot','navbar_id','post_id')->withPivot('post_id');
     }
     
     /**
@@ -41,7 +44,7 @@ class Post extends Model
      *
      * @var string
      */
-    protected $table = 'blog_posts';
+    protected $table = 'blog_navbars';
     
     /**
      * Indicates if the model should be timestamped.
@@ -75,4 +78,5 @@ class Post extends Model
      * @var array
      */
     protected $guarded = ['*'];
+    //
 }
