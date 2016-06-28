@@ -29,7 +29,7 @@
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    foreach(glob( base_path('/modules/*/Route/*.php') ) as $route){
+    foreach(glob( base_path('/modules/*/Routes/*.php') ) as $route){
         require $route;
     }
 });

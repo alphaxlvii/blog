@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Admin\Controller;
+namespace Modules\Admin\Controllers;
 
 use App\Admin;
 use Validator;
